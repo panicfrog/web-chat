@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapGetters } from 'vuex'
+import { GET_LOGINED } from './store/storeGetterKey'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  components: { },
+  computed: {
+    ...mapGetters({
+      isLogined: GET_LOGINED
+    })
+  },
+  watch: {
+    isLogined: function (newd) {
+      if (!newd) {
+        this.$router.push("/login")
+      }
+    }
   }
 }
 </script>
